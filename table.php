@@ -18,9 +18,22 @@
 		updateCar($_POST["id"], $_POST["number_plate"], $_POST["color"]);
 		
 	}
-
-	// käivitan funktsiooni
-	$array_of_cars = getCarData();
+	
+	$keyword = "";
+	
+	if(isset($_GET["keyword"])){
+		
+		//otsin
+		$keyword = $_GET["keyword"];
+		$array_of_cars = getCarData($keyword);
+		
+	}else{
+		
+		//küsin kõik andmed
+		$array_of_cars = getCarData();
+	}
+	
+	
 	
 	// trükin välja esimese auto
 	//echo $array_of_cars[1]->id." ".$array_of_cars[1]->plate;
@@ -28,6 +41,12 @@
 ?>
 
 <h2>Tabel</h2>
+
+<form action="table.php" method="get">
+	<input type="search" name="keyword" value="<?=$keyword?>">
+	<input type="submit">
+</form>
+
 <table border=1>
 	<tr>
 		<th>id</th>

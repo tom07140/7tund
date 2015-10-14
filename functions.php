@@ -6,11 +6,30 @@
 	require_once("../configGlobal.php");
 	$database = "if15_toomloo_3";
 	
-	function getCarData(){
+	
+	// annan vaikeväärtuse
+	function getCarData($keyword=""){
+		
+		$search = "%%";
+		
+		//kas otsisõna on tühi
+		if($keyword == ""){
+			
+			//ei otsi midagi
+			echo "Ei otsi";
+			
+		}else{
+			
+			//otsin
+			echo "Otsin ".$keyword;
+			$search = "%".$keyword."%";
+			
+		}
 		
 		$mysqli = new mysqli($GLOBALS["servername"], $GLOBALS["server_username"], $GLOBALS["server_password"], $GLOBALS["database"]);
 		
-		$stmt = $mysqli->prepare("SELECT id, user_id, number_plate, color FROM car_plates WHERE deleted IS NULL");
+		$stmt = $mysqli->prepare("SELECT id, user_id, number_plate, color FROM car_plates WHERE deleted IS NULL AND (number_plate LIKE ? OR color LIKE ?)");
+		$stmt->bind_param("ss", $search, $search);
 		$stmt->bind_result($id, $user_id_from_database, $number_plate, $color);
 		$stmt->execute();
 		
@@ -78,6 +97,7 @@
 		
 	}
 	
+
 	
 	
 	
