@@ -68,6 +68,7 @@
 				echo "<td>".$array_of_cars[$i]->user_id."</td>";
 				echo "<td><a href='?delete=".$array_of_cars[$i]->id."'>X</a></td>";
 				echo "<td><a href='?edit=".$array_of_cars[$i]->id."'>edit</a></td>";
+				echo "<td><a href='edit.php?edit_id=".$array_of_cars[$i]->id."'>edit</a></td>";
 				echo "</tr>";
 				
 				
